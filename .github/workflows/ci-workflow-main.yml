@@ -1,0 +1,26 @@
+name: CI Workflow Main
+on:
+  push:
+    branches:
+      - 'main'      
+  pull_request: 
+  workflow_call:
+jobs :
+  jobTest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+    #  - name: Setup JDK 11
+     #   uses: actions/setup-java@v3
+    #    with:
+    #      java-version: '11'
+    #      distribution: 'zulu'
+      - name: teste
+        run: mvn test
+  jobDePacotes: 
+    needs: jobTest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name : pacotes
+        run: mvn --activate-profiles prod package -DskipTests
